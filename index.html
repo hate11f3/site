@@ -1,0 +1,103 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SQUEEARE</title>
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      color: white;
+      font-family: 'Courier New', monospace;
+      overflow: hidden;
+    }.glitch-text {
+  font-size: 4rem;
+  text-align: center;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: colorShift 4s infinite;
+}
+
+@keyframes colorShift {
+  0% { color: #ff0040; }
+  25% { color: #00ffe7; }
+  50% { color: #fffb00; }
+  75% { color: #ff00fb; }
+  100% { color: #ff0040; }
+}
+
+.links {
+  text-align: center;
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.links a {
+  display: block;
+  margin: 10px;
+  text-decoration: none;
+  color: #00ffff;
+  font-size: 1.2rem;
+}
+
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+  </style>
+</head>
+<body>
+  <div class="glitch-text">SQUEEARE</div>
+  <div class="links">
+    <a href="https://github.com/hate11f3" target="_blank">GitHub</a>
+    <a href="https://t.me/squeeare" target="_blank">Telegram: @squeeare</a>
+    <a href="#">Discord: roze_tka</a>
+  </div>
+  <canvas id="bg"></canvas>  <script>
+    // Glitchy cube background
+    const canvas = document.getElementById('bg');
+    const ctx = canvas.getContext('2d');
+    let w, h;
+
+    function resize() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    function drawGlitchCube(t) {
+      ctx.clearRect(0, 0, w, h);
+      ctx.save();
+      ctx.translate(w/2, h/2);
+      const size = 100 + Math.sin(t * 0.001) * 10;
+      const glitch = (Math.random() - 0.5) * 10;
+      ctx.rotate(t * 0.001);
+      ctx.strokeStyle = `hsl(${t % 360}, 100%, 70%)`;
+      ctx.lineWidth = 2;
+
+      for (let i = 0; i < 4; i++) {
+        ctx.beginPath();
+        ctx.moveTo(-size + glitch, -size + glitch);
+        ctx.lineTo(size + glitch, -size + glitch);
+        ctx.lineTo(size + glitch, size + glitch);
+        ctx.lineTo(-size + glitch, size + glitch);
+        ctx.closePath();
+        ctx.stroke();
+        ctx.rotate(Math.PI / 2);
+      }
+
+      ctx.restore();
+      requestAnimationFrame(drawGlitchCube);
+    }
+
+    requestAnimationFrame(drawGlitchCube);
+  </script></body>
+</html>
