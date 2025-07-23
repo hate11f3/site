@@ -1,157 +1,151 @@
 <!DOCTYPE html><html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SQUEEARE</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Orbitron', sans-serif;
-      }body, html {
-    height: 100%;
-    overflow-x: hidden;
-    background: #0d0d0d;
-    color: white;
-    scroll-behavior: smooth;
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Squeeare</title>
+  <link href="https://fonts.googleapis.com/css2?family=Climate+Crisis&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow-x: hidden;
+      font-family: 'Climate Crisis', sans-serif;
+      background: black;
+      color: white;
+    }canvas#stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.header {
+  position: absolute;
+  top: 20px;
+  left: 30px;
+  font-size: 2em;
+}
+
+.footer {
+  position: absolute;
+  bottom: 30px;
+  width: 100%;
+  text-align: center;
+  font-size: 1.2em;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 120px;
+  opacity: 0;
+  transform: translateY(100px);
+  animation: slideUp 1.5s ease-out forwards;
+}
+
+.link-box {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 15px 30px;
+  margin: 15px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: transform 0.3s;
+}
+
+.link-box:hover {
+  transform: scale(1.05);
+}
+
+.link-box img {
+  width: 24px;
+  height: 24px;
+}
+
+@keyframes slideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
+}
 
-  .parallax {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    perspective: 1px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-  }
+.code-section {
+  margin-top: 100px;
+  padding: 40px;
+  font-size: 0.9em;
+  font-family: monospace;
+  white-space: pre-wrap;
+  background: rgba(255, 255, 255, 0.05);
+  border-top: 2px solid rgba(255, 255, 255, 0.2);
+}
 
-  .parallax-layer {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    transform: translateZ(-1px) scale(2);
-    background-image: url('https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1950&q=80'); /* replace with glitchy image */
-    filter: brightness(0.3) contrast(1.2) saturate(1.3);
-    animation: floatGlitch 5s infinite;
-  }
+  </style>
+</head>
+<body>
+  <canvas id="stars"></canvas>  <div class="header">Squeeare</div>
+  <div class="footer">made for my telegram</div>  <div class="links">
+    <div class="link-box">
+      <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub">
+      <a href="https://github.com/hate11f3" target="_blank">github.com/hate11f3</a>
+    </div>
+    <div class="link-box">
+      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram">
+      <a href="https://t.me/squeeare" target="_blank">t.me/squeeare</a>
+    </div>
+    <div class="link-box">
+      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" alt="Discord">
+      <span>Discord: roze_tka</span>
+    </div>
+  </div>  <div class="code-section">
+    &lt;!-- HTML & CSS Template --&gt;
+    &lt;link href="https://fonts.googleapis.com/css2?family=Climate+Crisis&amp;display=swap" rel="stylesheet"&gt;
+    &lt;div class="header"&gt;Squeeare&lt;/div&gt;
+    &lt;div class="link-box"&gt;
+      &lt;img src="github.png"&gt;
+      &lt;a href="https://github.com/hate11f3"&gt;github.com/hate11f3&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;!-- Добавьте другие ссылки аналогично --&gt;
+  </div>  <script>
+    const canvas = document.getElementById('stars');
+    const ctx = canvas.getContext('2d');
 
-  @keyframes floatGlitch {
-    0%, 100% { transform: translateZ(-1px) scale(2) translateY(0); }
-    50% { transform: translateZ(-1px) scale(2) translateY(10px); }
-  }
+    let w = window.innerWidth;
+    let h = window.innerHeight;
+    canvas.width = w;
+    canvas.height = h;
 
-  .centered {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
+    let stars = Array(200).fill().map(() => ({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      z: Math.random() * w,
+    }));
 
-  h1 {
-    font-size: 4em;
-    background: linear-gradient(45deg, #ff007f, #00ffff, #7f00ff);
-    background-size: 400% 400%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: gradientShift 5s infinite;
-  }
+    function drawStars() {
+      ctx.clearRect(0, 0, w, h);
+      for (let i = 0; i < stars.length; i++) {
+        let star = stars[i];
+        star.z -= 1;
+        if (star.z <= 0) star.z = w;
 
-  @keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
+        let k = 128.0 / star.z;
+        let x = star.x * k + w / 2;
+        let y = star.y * k + h / 2;
 
-  .subtitle {
-    margin-top: 1rem;
-    font-size: 1.2rem;
-    color: #aaa;
-  }
+        if (x >= 0 && x < w && y >= 0 && y < h) {
+          let size = (1 - star.z / w) * 2;
+          ctx.beginPath();
+          ctx.fillStyle = 'white';
+          ctx.arc(x, y, size, 0, 2 * Math.PI);
+          ctx.fill();
+        }
+      }
+      requestAnimationFrame(drawStars);
+    }
 
-  .scroll-indicator {
-    margin-top: 2rem;
-    font-size: 1.2rem;
-    animation: bounce 2s infinite;
-    color: #888;
-  }
-
-  @keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(8px); }
-  }
-
-  .links-section {
-    padding: 100px 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 100px;
-  }
-
-  .link-block {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    font-size: 1.4rem;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 15px 25px;
-    border-radius: 12px;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: transform 0.3s;
-  }
-
-  .link-block:hover {
-    transform: translateY(-5px);
-  }
-
-  .link-block img {
-    width: 30px;
-    height: 30px;
-  }
-
-  a {
-    color: white;
-    text-decoration: none;
-  }
-</style>
-
-  </head>
-  <body>
-    <div class="parallax">
-      <div class="parallax-layer"></div>
-    </div><div class="centered">
-  <h1>SQUEEARE</h1>
-  <div class="subtitle">made for my telegram</div>
-  <div class="scroll-indicator">my links ↓</div>
-</div>
-
-<div class="links-section">
-  <a href="https://github.com/hate11f3" class="link-block">
-    <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub" />
-    github.com/hate11f3
-  </a>
-  <a href="https://t.me/squeeare" class="link-block">
-    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram" />
-    @squeeare
-  </a>
-  <div class="link-block">
-    <img src="https://cdn-icons-png.flaticon.com/512/3670/3670157.png" alt="Discord" />
-    roze_tka
-  </div>
-</div>
-
-  </body>
+    drawStars();
+  </script></body>
 </html>
