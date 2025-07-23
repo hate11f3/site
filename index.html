@@ -6,7 +6,7 @@
   <style>
     body {
       margin: 0;
-      background: black;
+      background: #000;
       color: white;
       font-family: 'Courier New', monospace;
       overflow: hidden;
@@ -18,6 +18,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   animation: colorShift 4s infinite;
+  letter-spacing: 3px;
 }
 
 @keyframes colorShift {
@@ -37,11 +38,19 @@
 }
 
 .links a {
-  display: block;
+  display: inline-block;
   margin: 10px;
   text-decoration: none;
   color: #00ffff;
   font-size: 1.2rem;
+  border: 1px solid #00ffff;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: background 0.3s;
+}
+
+.links a:hover {
+  background: rgba(0, 255, 255, 0.1);
 }
 
 canvas {
@@ -57,11 +66,11 @@ canvas {
   <div class="glitch-text">SQUEEARE</div>
   <div class="links">
     <a href="https://github.com/hate11f3" target="_blank">GitHub</a>
-    <a href="https://t.me/squeeare" target="_blank">Telegram: @squeeare</a>
+    <a href="https://t.me/squeeare" target="_blank">Telegram</a>
     <a href="#">Discord: roze_tka</a>
   </div>
   <canvas id="bg"></canvas>  <script>
-    // Glitchy cube background
+    // 4D Tesseract projection
     const canvas = document.getElementById('bg');
     const ctx = canvas.getContext('2d');
     let w, h;
@@ -73,31 +82,68 @@ canvas {
     window.addEventListener('resize', resize);
     resize();
 
-    function drawGlitchCube(t) {
+    // 4D cube vertices
+    const vertices = [];
+    for (let i = 0; i < 16; i++) {
+      vertices.push([
+        (i & 1) ? 1 : -1,
+        (i & 2) ? 1 : -1,
+        (i & 4) ? 1 : -1,
+        (i & 8) ? 1 : -1
+      ]);
+    }
+
+    // edges
+    const edges = [];
+    for (let i = 0; i < 16; i++) {
+      for (let j = i + 1; j < 16; j++) {
+        let diff = 0;
+        for (let k = 0; k < 4; k++) {
+          if (vertices[i][k] !== vertices[j][k]) diff++;
+        }
+        if (diff === 1) edges.push([i, j]);
+      }
+    }
+
+    function rotate4D(v, angle1, angle2) {
+      let [x, y, z, w] = v;
+      let sin1 = Math.sin(angle1), cos1 = Math.cos(angle1);
+      let sin2 = Math.sin(angle2), cos2 = Math.cos(angle2);
+      // Rotate XW
+      let x1 = x * cos1 - w * sin1;
+      let w1 = x * sin1 + w * cos1;
+      // Rotate YZ
+      let y1 = y * cos2 - z * sin2;
+      let z1 = y * sin2 + z * cos2;
+      return [x1, y1, z1, w1];
+    }
+
+    function project(v) {
+      const scale = 150;
+      const distance = 4;
+      const w = 1 / (distance - v[3]);
+      return [v[0] * w * scale, v[1] * w * scale];
+    }
+
+    function draw(t) {
       ctx.clearRect(0, 0, w, h);
       ctx.save();
-      ctx.translate(w/2, h/2);
-      const size = 100 + Math.sin(t * 0.001) * 10;
-      const glitch = (Math.random() - 0.5) * 10;
-      ctx.rotate(t * 0.001);
-      ctx.strokeStyle = `hsl(${t % 360}, 100%, 70%)`;
-      ctx.lineWidth = 2;
+      ctx.translate(w / 2, h / 2);
+      let projected = vertices.map(v => project(rotate4D(v, t * 0.001, t * 0.0007)));
 
-      for (let i = 0; i < 4; i++) {
+      ctx.strokeStyle = 'rgba(0,255,255,0.2)';
+      ctx.lineWidth = 1;
+      for (let [a, b] of edges) {
         ctx.beginPath();
-        ctx.moveTo(-size + glitch, -size + glitch);
-        ctx.lineTo(size + glitch, -size + glitch);
-        ctx.lineTo(size + glitch, size + glitch);
-        ctx.lineTo(-size + glitch, size + glitch);
-        ctx.closePath();
+        ctx.moveTo(projected[a][0], projected[a][1]);
+        ctx.lineTo(projected[b][0], projected[b][1]);
         ctx.stroke();
-        ctx.rotate(Math.PI / 2);
       }
 
       ctx.restore();
-      requestAnimationFrame(drawGlitchCube);
+      requestAnimationFrame(draw);
     }
 
-    requestAnimationFrame(drawGlitchCube);
+    requestAnimationFrame(draw);
   </script></body>
 </html>
