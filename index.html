@@ -1,118 +1,51 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SQUEEARElinks</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
-  <style>
-    /* Reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #0a0a0a;
-      color: #eee;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 2rem;
-      overflow-x: hidden;
-      user-select: none;
-    }
-
-    h1 {
-      font-size: 4rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      color: #00fff7;
-      background: linear-gradient(90deg, #00fff7 0%, #ff00e6 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: hueRotate 5s linear infinite;
-    }
-
-    @keyframes hueRotate {
-      from {
-        filter: hue-rotate(0deg);
-      }
-      to {
-        filter: hue-rotate(360deg);
-      }
-    }
-
-    p {
-      font-size: 1.5rem;
-      margin-bottom: 2rem;
-      color: #888;
-      user-select: none;
-    }
-
-    .buttons {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      justify-content: center;
-      perspective: 800px; /* для 3D эффекта */
-    }
-
-    .btn {
-      padding: 0.75rem 1.5rem;
-      border: 2px solid #00fff7;
-      border-radius: 8px;
-      color: #00fff7;
-      font-weight: 600;
-      cursor: pointer;
-      text-decoration: none;
-      transition: background-color 0.3s ease, color 0.3s ease, transform 0.1s ease;
-      will-change: transform;
-      user-select: none;
-      background: transparent;
-    }
-
-    .btn:hover {
-      background-color: #00fff7;
-      color: #0a0a0a;
-    }
-
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SQUEEARE</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h1>SQUEEARE</h1>
-  <p>my links</p>
-  <div class="buttons" id="buttons">
-    <a href="https://github.com/hate11f3" target="_blank" class="btn">GitHub</a>
-    <a href="https://t.me/squeeare" target="_blank" class="btn">Telegram</a>
-    <a href="#" class="btn">Discord: roze_tka</a>
+  <div class="parallax">
+    <div class="content">
+      <h1 class="title">SQUEEARE</h1>
+      <p class="subtitle">made for my telegram</p>
+      <div class="scroll-down">
+        <p>my links</p>
+        <span class="arrow">&#x2193;</span>
+      </div>
+    </div>
   </div>
 
-  <script>
-    const container = document.getElementById('buttons');
-    container.addEventListener('mousemove', e => {
-      const rect = container.getBoundingClientRect();
-      const x = e.clientX - rect.left - rect.width / 2;
-      const y = e.clientY - rect.top - rect.height / 2;
+  <section class="links">
+    <div class="link-card">
+      <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub" />
+      <a href="https://github.com/hate11f3" target="_blank">GitHub</a>
+    </div>
+    <div class="link-card">
+      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram" />
+      <a href="https://t.me/squeeare" target="_blank">Telegram</a>
+    </div>
+    <div class="link-card">
+      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" alt="Discord" />
+      <p>roze_tka</p>
+    </div>
+  </section>
 
-      const buttons = container.querySelectorAll('.btn');
-      buttons.forEach((btn, i) => {
-        const factor = (i + 1) * 4; // сила смещения по элементам
-        const translateX = (x / rect.width) * factor;
-        const translateY = (y / rect.height) * factor;
-        btn.style.transform = `translate3d(${translateX}px, ${translateY}px, 0)`;
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
       });
     });
 
-    container.addEventListener('mouseleave', () => {
-      const buttons = container.querySelectorAll('.btn');
-      buttons.forEach(btn => {
-        btn.style.transform = `translate3d(0,0,0)`;
-      });
+    document.querySelectorAll('.link-card').forEach(card => {
+      observer.observe(card);
     });
   </script>
 </body>
