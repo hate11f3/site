@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SQUEEARE - Стиль Solara</title>
+  <title>SQUEEARElinks</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
   <style>
     /* Reset */
@@ -24,6 +24,7 @@
       align-items: center;
       padding: 2rem;
       overflow-x: hidden;
+      user-select: none;
     }
 
     h1 {
@@ -47,11 +48,10 @@
     }
 
     p {
-      font-size: 1.25rem;
-      max-width: 600px;
+      font-size: 1.5rem;
       margin-bottom: 2rem;
-      text-align: center;
-      color: #bbb;
+      color: #888;
+      user-select: none;
     }
 
     .buttons {
@@ -59,6 +59,7 @@
       gap: 1rem;
       flex-wrap: wrap;
       justify-content: center;
+      perspective: 800px; /* для 3D эффекта */
     }
 
     .btn {
@@ -69,7 +70,10 @@
       font-weight: 600;
       cursor: pointer;
       text-decoration: none;
-      transition: background-color 0.3s ease, color 0.3s ease;
+      transition: background-color 0.3s ease, color 0.3s ease, transform 0.1s ease;
+      will-change: transform;
+      user-select: none;
+      background: transparent;
     }
 
     .btn:hover {
@@ -77,30 +81,39 @@
       color: #0a0a0a;
     }
 
-    footer {
-      margin-top: 4rem;
-      font-size: 0.9rem;
-      color: #444;
-    }
-
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 2.5rem;
-      }
-      p {
-        font-size: 1rem;
-      }
-    }
   </style>
 </head>
 <body>
   <h1>SQUEEARE</h1>
-  <p>Современный минималистичный сайт-визитка с плавным градиентом и акцентом на стиль.</p>
-  <div class="buttons">
+  <p>my links</p>
+  <div class="buttons" id="buttons">
     <a href="https://github.com/hate11f3" target="_blank" class="btn">GitHub</a>
     <a href="https://t.me/squeeare" target="_blank" class="btn">Telegram</a>
     <a href="#" class="btn">Discord: roze_tka</a>
   </div>
-  <footer>© 2025 SQUEEARE</footer>
+
+  <script>
+    const container = document.getElementById('buttons');
+    container.addEventListener('mousemove', e => {
+      const rect = container.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+
+      const buttons = container.querySelectorAll('.btn');
+      buttons.forEach((btn, i) => {
+        const factor = (i + 1) * 4; // сила смещения по элементам
+        const translateX = (x / rect.width) * factor;
+        const translateY = (y / rect.height) * factor;
+        btn.style.transform = `translate3d(${translateX}px, ${translateY}px, 0)`;
+      });
+    });
+
+    container.addEventListener('mouseleave', () => {
+      const buttons = container.querySelectorAll('.btn');
+      buttons.forEach(btn => {
+        btn.style.transform = `translate3d(0,0,0)`;
+      });
+    });
+  </script>
 </body>
 </html>
