@@ -1,159 +1,106 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SQUEEARE</title>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SQUEEARE - Стиль Solara</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
   <style>
-    body {
+    /* Reset */
+    * {
       margin: 0;
-      background: radial-gradient(circle, #000000, #0a0a0a);
-      color: white;
-      font-family: 'Press Start 2P', monospace;
-      overflow: hidden;
-    }.glitch-text {
-  font-size: 2.5rem;
-  text-align: center;
-  position: absolute;
-  top: 35%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  animation: glitch 2s infinite, colorShift 6s infinite;
-  text-shadow: 0 0 4px #00fff7, 0 0 8px #ff00e6;
-}
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-@keyframes colorShift {
-  0% { color: #ff0055; }
-  25% { color: #00fff7; }
-  50% { color: #fffb00; }
-  75% { color: #ff00fb; }
-  100% { color: #ff0055; }
-}
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a0a0a;
+      color: #eee;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      overflow-x: hidden;
+    }
 
-@keyframes glitch {
-  0% { transform: translate(-50%, -50%) skew(0); }
-  20% { transform: translate(-48%, -52%) skew(-5deg); }
-  40% { transform: translate(-52%, -48%) skew(5deg); }
-  60% { transform: translate(-49%, -51%) skew(0); }
-  80% { transform: translate(-50%, -50%) skew(-2deg); }
-  100% { transform: translate(-50%, -50%) skew(0); }
-}
+    h1 {
+      font-size: 4rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: #00fff7;
+      background: linear-gradient(90deg, #00fff7 0%, #ff00e6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: hueRotate 5s linear infinite;
+    }
 
-.links {
-  text-align: center;
-  position: absolute;
-  top: 65%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
+    @keyframes hueRotate {
+      from {
+        filter: hue-rotate(0deg);
+      }
+      to {
+        filter: hue-rotate(360deg);
+      }
+    }
 
-.links a {
-  display: inline-block;
-  margin: 10px;
-  text-decoration: none;
-  color: #00ffff;
-  font-size: 0.9rem;
-  border: 2px dashed #00ffff;
-  padding: 10px 20px;
-  border-radius: 8px;
-  transition: all 0.3s ease-in-out;
-  background: rgba(255, 255, 255, 0.02);
-}
+    p {
+      font-size: 1.25rem;
+      max-width: 600px;
+      margin-bottom: 2rem;
+      text-align: center;
+      color: #bbb;
+    }
 
-.links a:hover {
-  background: rgba(0, 255, 255, 0.1);
-  transform: scale(1.1) rotate(-1deg);
-  box-shadow: 0 0 10px #00ffff99;
-}
+    .buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
 
-canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
-}
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border: 2px solid #00fff7;
+      border-radius: 8px;
+      color: #00fff7;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
 
+    .btn:hover {
+      background-color: #00fff7;
+      color: #0a0a0a;
+    }
+
+    footer {
+      margin-top: 4rem;
+      font-size: 0.9rem;
+      color: #444;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+      p {
+        font-size: 1rem;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="glitch-text">SQUEEARE</div>
-  <div class="links">
-    <a href="https://github.com/hate11f3" target="_blank">GitHub</a>
-    <a href="https://t.me/squeeare" target="_blank">Telegram</a>
-    <a href="#">Discord: roze_tka</a>
+  <h1>SQUEEARE</h1>
+  <p>Современный минималистичный сайт-визитка с плавным градиентом и акцентом на стиль.</p>
+  <div class="buttons">
+    <a href="https://github.com/hate11f3" target="_blank" class="btn">GitHub</a>
+    <a href="https://t.me/squeeare" target="_blank" class="btn">Telegram</a>
+    <a href="#" class="btn">Discord: roze_tka</a>
   </div>
-  <canvas id="bg"></canvas>  <script>
-    const canvas = document.getElementById('bg');
-    const ctx = canvas.getContext('2d');
-    let w, h;
-
-    function resize() {
-      w = canvas.width = window.innerWidth;
-      h = canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resize);
-    resize();
-
-    const vertices = [];
-    for (let i = 0; i < 16; i++) {
-      vertices.push([
-        (i & 1) ? 1 : -1,
-        (i & 2) ? 1 : -1,
-        (i & 4) ? 1 : -1,
-        (i & 8) ? 1 : -1
-      ]);
-    }
-
-    const edges = [];
-    for (let i = 0; i < 16; i++) {
-      for (let j = i + 1; j < 16; j++) {
-        let diff = 0;
-        for (let k = 0; k < 4; k++) {
-          if (vertices[i][k] !== vertices[j][k]) diff++;
-        }
-        if (diff === 1) edges.push([i, j]);
-      }
-    }
-
-    function rotate4D(v, a1, a2) {
-      let [x, y, z, w] = v;
-      let sin1 = Math.sin(a1), cos1 = Math.cos(a1);
-      let sin2 = Math.sin(a2), cos2 = Math.cos(a2);
-      let x1 = x * cos1 - w * sin1;
-      let w1 = x * sin1 + w * cos1;
-      let y1 = y * cos2 - z * sin2;
-      let z1 = y * sin2 + z * cos2;
-      return [x1, y1, z1, w1];
-    }
-
-    function project(v) {
-      const scale = 150;
-      const distance = 4;
-      const w = 1 / (distance - v[3]);
-      return [v[0] * w * scale, v[1] * w * scale];
-    }
-
-    function draw(t) {
-      ctx.clearRect(0, 0, w, h);
-      ctx.save();
-      ctx.translate(w / 2, h / 2);
-      const projected = vertices.map(v => project(rotate4D(v, t * 0.001, t * 0.0007)));
-
-      ctx.strokeStyle = `hsl(${t % 360}, 100%, 70%)`;
-      ctx.lineWidth = 1.5;
-      ctx.globalAlpha = 0.2 + Math.abs(Math.sin(t * 0.002)) * 0.5;
-
-      for (let [a, b] of edges) {
-        ctx.beginPath();
-        ctx.moveTo(projected[a][0], projected[a][1]);
-        ctx.lineTo(projected[b][0], projected[b][1]);
-        ctx.stroke();
-      }
-
-      ctx.restore();
-      requestAnimationFrame(draw);
-    }
-
-    requestAnimationFrame(draw);
-  </script></body>
+  <footer>© 2025 SQUEEARE</footer>
+</body>
 </html>
