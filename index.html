@@ -3,149 +3,121 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Squeeare</title>
-  <link href="https://fonts.googleapis.com/css2?family=Climate+Crisis&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Climate+Crisis&family=Orbitron:wght@500&family=Press+Start+2P&display=swap" rel="stylesheet">
   <style>
-    html, body {
+    * {
       margin: 0;
       padding: 0;
-      height: 100%;
-      overflow-x: hidden;
-      font-family: 'Climate Crisis', sans-serif;
-      background: black;
-      color: white;
-    }canvas#stars {
+      box-sizing: border-box;
+    }html, body {
+  height: 100%;
+  background: radial-gradient(ellipse at bottom, #0d0d2b 0%, #000000 100%);
+  overflow-x: hidden;
+  font-family: 'Orbitron', sans-serif;
+  color: white;
+  scroll-behavior: smooth;
+}
+
+.stars {
   position: fixed;
-  top: 0;
-  left: 0;
-  z-index: -1;
+  width: 200%;
+  height: 200%;
+  background: transparent url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
+  animation: moveStars 100s linear infinite;
+  opacity: 0.4;
 }
 
-.header {
-  position: absolute;
-  top: 20px;
-  left: 30px;
-  font-size: 2em;
+@keyframes moveStars {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(-500px, -500px); }
 }
 
-.footer {
+header {
+  position: relative;
+  padding: 2rem;
+  font-family: 'Climate Crisis', cursive;
+  font-size: 3rem;
+  color: #ff00ff;
+}
+
+.bottom-text {
   position: absolute;
-  bottom: 30px;
+  bottom: 20px;
   width: 100%;
   text-align: center;
-  font-size: 1.2em;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.75rem;
+  animation: pulse 2s infinite;
+  color: #00ffff;
 }
 
-.links {
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.6; }
+}
+
+.links-section {
+  margin-top: 30vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 120px;
-  opacity: 0;
+  gap: 2rem;
+  animation: appear 2s ease-out forwards;
+}
+
+.link-card {
+  background: linear-gradient(145deg, #ff00cc, #3333ff);
+  padding: 1rem 2rem;
+  border-radius: 20px;
+  box-shadow: 0 0 25px #ff00ff80;
+  font-size: 1.2rem;
   transform: translateY(100px);
-  animation: slideUp 1.5s ease-out forwards;
+  opacity: 0;
+  animation: slideUp 1s forwards;
 }
 
-.link-box {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 15px 30px;
-  margin: 15px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  transition: transform 0.3s;
-}
-
-.link-box:hover {
-  transform: scale(1.05);
-}
-
-.link-box img {
-  width: 24px;
-  height: 24px;
-}
+.link-card:nth-child(1) { animation-delay: 0.5s; }
+.link-card:nth-child(2) { animation-delay: 1s; }
+.link-card:nth-child(3) { animation-delay: 1.5s; }
 
 @keyframes slideUp {
   to {
-    opacity: 1;
     transform: translateY(0);
+    opacity: 1;
   }
 }
 
-.code-section {
-  margin-top: 100px;
-  padding: 40px;
-  font-size: 0.9em;
-  font-family: monospace;
-  white-space: pre-wrap;
-  background: rgba(255, 255, 255, 0.05);
-  border-top: 2px solid rgba(255, 255, 255, 0.2);
+.link-card a {
+  color: white;
+  text-decoration: none;
+}
+
+.link-card img {
+  vertical-align: middle;
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
 }
 
   </style>
 </head>
 <body>
-  <canvas id="stars"></canvas>  <div class="header">Squeeare</div>
-  <div class="footer">made for my telegram</div>  <div class="links">
-    <div class="link-box">
-      <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub">
+  <div class="stars"></div>
+  <header>Squeeare</header>  <div class="bottom-text">
+    made for my telegram<br>⇣ my links ⇣
+  </div>  <div class="links-section">
+    <div class="link-card">
+      <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" />
       <a href="https://github.com/hate11f3" target="_blank">github.com/hate11f3</a>
     </div>
-    <div class="link-box">
-      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram">
+    <div class="link-card">
+      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" />
       <a href="https://t.me/squeeare" target="_blank">t.me/squeeare</a>
     </div>
-    <div class="link-box">
-      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" alt="Discord">
-      <span>Discord: roze_tka</span>
+    <div class="link-card">
+      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" />
+      <a href="https://discord.com/users/roze_tka" target="_blank">discord: roze_tka</a>
     </div>
-  </div>  <div class="code-section">
-    &lt;!-- HTML & CSS Template --&gt;
-    &lt;link href="https://fonts.googleapis.com/css2?family=Climate+Crisis&amp;display=swap" rel="stylesheet"&gt;
-    &lt;div class="header"&gt;Squeeare&lt;/div&gt;
-    &lt;div class="link-box"&gt;
-      &lt;img src="github.png"&gt;
-      &lt;a href="https://github.com/hate11f3"&gt;github.com/hate11f3&lt;/a&gt;
-    &lt;/div&gt;
-    &lt;!-- Добавьте другие ссылки аналогично --&gt;
-  </div>  <script>
-    const canvas = document.getElementById('stars');
-    const ctx = canvas.getContext('2d');
-
-    let w = window.innerWidth;
-    let h = window.innerHeight;
-    canvas.width = w;
-    canvas.height = h;
-
-    let stars = Array(200).fill().map(() => ({
-      x: Math.random() * w,
-      y: Math.random() * h,
-      z: Math.random() * w,
-    }));
-
-    function drawStars() {
-      ctx.clearRect(0, 0, w, h);
-      for (let i = 0; i < stars.length; i++) {
-        let star = stars[i];
-        star.z -= 1;
-        if (star.z <= 0) star.z = w;
-
-        let k = 128.0 / star.z;
-        let x = star.x * k + w / 2;
-        let y = star.y * k + h / 2;
-
-        if (x >= 0 && x < w && y >= 0 && y < h) {
-          let size = (1 - star.z / w) * 2;
-          ctx.beginPath();
-          ctx.fillStyle = 'white';
-          ctx.arc(x, y, size, 0, 2 * Math.PI);
-          ctx.fill();
-        }
-      }
-      requestAnimationFrame(drawStars);
-    }
-
-    drawStars();
-  </script></body>
+  </div>
+</body>
 </html>
